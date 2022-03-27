@@ -11,6 +11,21 @@ Order order = new Order()
     }
 };
 
-var shoppingCart = new ShoppingCart(order, new StandardShippingProviderFactory());
+IPurchaseProviderFactory purchaseProviderFactory;
+
+if (order.ReceiverAddress.CountryCode == "FR")
+{
+    purchaseProviderFactory = new FirstPurchaseProviderFactory();
+}
+else if (order.ReceiverAddress.CountryCode == "SE")
+{
+    purchaseProviderFactory = new SecondPurchaseProviderFactory();
+}
+else
+{
+    throw new NotSupportedException("Sender country has no purchase provider");
+}
+
+var shoppingCart = new ShoppingCart(order, purchaseProviderFactory);
 
 shoppingCart.ShipOrder();

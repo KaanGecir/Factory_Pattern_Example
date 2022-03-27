@@ -5,20 +5,24 @@ namespace FactoryPatternExample.Models.Entities
     public class ShoppingCart
     {
         private readonly Order order;
-        private readonly ShippingProviderFactory shippingProviderFactory;
+        private readonly IPurchaseProviderFactory purchaseProviderFactory;
 
         public ShoppingCart(Order order,
-            ShippingProviderFactory shippingProviderFactory)
+            IPurchaseProviderFactory purchaseProviderFactory)
         {
             this.order = order;
-            this.shippingProviderFactory = shippingProviderFactory;
+            this.purchaseProviderFactory = purchaseProviderFactory;
         }
 
         public void ShipOrder()
         {
-            var shippingProvider = shippingProviderFactory.GetShippingFactor(order.ReceiverAddress.CountryCode);
+            var shippingProvider = purchaseProviderFactory.CreateShippingProvider(order);
 
             shippingProvider.ShipOrder(order);
+
+            var invoice = purchaseProviderFactory.CreateInvoice(order);
+
+            invoice.GenerateInvoice();
         }
     }
 }
