@@ -2,7 +2,7 @@
 
 namespace FactoryPatternExample.Models.Shipping
 {
-    internal abstract class ShippingProvider
+    public abstract class ShippingProvider
     {
         public abstract void ShipOrder(Order order);
     }

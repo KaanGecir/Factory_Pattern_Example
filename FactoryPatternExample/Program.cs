@@ -1,5 +1,5 @@
 ﻿using FactoryPatternExample.Models.Entities;
-using FactoryPatternExample.Models.Shipping;
+using FactoryPatternExample.Models.Factories;
 
 Order order = new Order()
 {
@@ -11,6 +11,6 @@ Order order = new Order()
     }
 };
 
-var shippingProvider = ShippingProviderFactory.CreateShippingFactor(order.ReceiverAddress.CountryCode);
+var shoppingCart = new ShoppingCart(order, new StandardShippingProviderFactory());
 
-shippingProvider.ShipOrder(order);
+shoppingCart.ShipOrder();

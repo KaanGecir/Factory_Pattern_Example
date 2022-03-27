@@ -1,8 +1,10 @@
-﻿namespace FactoryPatternExample.Models.Shipping
+﻿using FactoryPatternExample.Models.Shipping;
+
+namespace FactoryPatternExample.Models.Factories
 {
-    internal class ShippingProviderFactory
+    public class StandardShippingProviderFactory : ShippingProviderFactory
     {
-        public static ShippingProvider CreateShippingFactor(string CountryCode)
+        public override ShippingProvider CreateShippingProvider(string CountryCode)
         {
             ShippingProvider shippingProvider;
 
